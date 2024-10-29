@@ -29,5 +29,12 @@ jobs:
             curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" \
               -H "Authorization: Bearer $AUTH_TOKEN" \
               "https://app.powerbi.com/reportEmbed?reportId=b5be36d2-b9f2-4e77-aacd-5ec47dbaba7d&autoAuth=true&ctid=1ad78d1c-f079-4c52-9859-8e143b74a8ea"
-            ls -la
+              
+      - name: Refresh Power BI Dataset - safari
+        env:
+          AUTH_TOKEN: ${{ steps.request_token.outputs.token }}      
+        run: |
+          curl -A "MMozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" \
+              -H "Authorization: Bearer $AUTH_TOKEN" \
+              "https://app.powerbi.com/reportEmbed?reportId=b5be36d2-b9f2-4e77-aacd-5ec47dbaba7d&autoAuth=true&ctid=1ad78d1c-f079-4c52-9859-8e143b74a8ea"
 
