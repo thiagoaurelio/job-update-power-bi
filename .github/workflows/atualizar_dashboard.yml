@@ -5,18 +5,17 @@ on:
     - cron: '0 * * * *' # Executa a cada hora (você pode ajustar conforme necessário)
   workflow_dispatch: # Permite execução manual
 
+env:
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+  WORKSPACE_ID: ${{ secrets.WORKSPACE_ID }}
+  DATASET_ID: ${{ secrets.DATASET_ID }}
+
 jobs:
   refresh-dataset:
     runs-on: ubuntu-latest
     steps:
-      - name: Set Power BI Variables
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          TENANT_ID: ${{ secrets.TENANT_ID }}
-          WORKSPACE_ID: ${{ secrets.WORKSPACE_ID }}
-          DATASET_ID: ${{ secrets.DATASET_ID }}
-
       - name: Request Power BI Token
         id: request_token
         run: |
