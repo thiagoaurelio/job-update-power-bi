@@ -2,7 +2,7 @@ name: Atualizar Dashboard Power BI
 
 on:
   schedule:
-    - cron: '0 * * * *' # Executa a cada hora (você pode ajustar conforme necessário)
+    - cron: '*/10 * * * *' # Executa a cada 10 minutos
   workflow_dispatch: # Permite execução manual
 
 env:
