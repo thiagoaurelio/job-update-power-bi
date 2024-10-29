@@ -11,7 +11,6 @@ env:
   TENANT_ID: ${{ secrets.TENANT_ID }}
   WORKSPACE_ID: ${{ secrets.WORKSPACE_ID }}
   DATASET_ID: ${{ secrets.DATASET_ID }}
-  AUTH_TOKEN: ${{ steps.request_token.outputs.token }}
 
 jobs:
   refresh-dataset:
@@ -24,6 +23,8 @@ jobs:
           echo "::set-output name=token::$(echo $response | jq -r '.access_token')"
 
       - name: Refresh Power BI Dataset
+        env:
+          AUTH_TOKEN: ${{ steps.request_token.outputs.token }}      
         run: |
           curl -X POST \
             -H "Authorization: Bearer $AUTH_TOKEN" \
