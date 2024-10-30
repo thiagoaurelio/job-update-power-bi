@@ -30,11 +30,13 @@ jobs:
               -H "Authorization: Bearer $AUTH_TOKEN" \
               "https://app.powerbi.com/reportEmbed?reportId=b5be36d2-b9f2-4e77-aacd-5ec47dbaba7d&autoAuth=true&ctid=1ad78d1c-f079-4c52-9859-8e143b74a8ea"
               
-      - name: Refresh Power BI Dataset - safari
+      - name: Valida status code
         env:
           AUTH_TOKEN: ${{ steps.request_token.outputs.token }}      
         run: |
-          curl -A "MMozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" \
-              -H "Authorization: Bearer $AUTH_TOKEN" \
-              "https://app.powerbi.com/reportEmbed?reportId=b5be36d2-b9f2-4e77-aacd-5ec47dbaba7d&autoAuth=true&ctid=1ad78d1c-f079-4c52-9859-8e143b74a8ea"
-
+          if [ "$(curl -o /dev/null -s -w "%{http_code}\n" https://app.powerbi.com/reportEmbed?reportId=b5be36d2-b9f2-4e77-aacd-5ec47dbaba7d&autoAuth=true&ctid=1ad78d1c-f079-4c52-9859-8e143b74a8ea)" -eq 200 ]; \
+          then \
+          echo "O site está acessível (HTTP 200)." \
+          else \
+          echo "O site não está acessível." \
+          fi
